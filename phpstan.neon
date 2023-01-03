@@ -3,3 +3,5 @@ parameters:
   level: 4
   paths:
     - ./packages/
+  excludePaths:
+    - ./packages/*/vendor/*
