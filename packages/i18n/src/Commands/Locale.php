@@ -1,7 +1,10 @@
 <?php
 
-namespace Sxy\I18n\Commands;
+declare(strict_types=1);
 
+namespace Cyclone\I18n\Commands;
+
+use Cyclone\I18n\PreferenceStore;
 use ZM\Annotation\OneBot\BotCommand;
 use ZM\Annotation\OneBot\CommandArgument;
 use ZM\Annotation\OneBot\CommandHelp;
@@ -16,6 +19,6 @@ class Locale
     {
         $target = $context->getParam('locale');
         $id = $context->getEvent()->getUserId();
-        kv('i18n')->set($id, $target);
+        PreferenceStore::getInstance()->set($id, $target);
     }
 }

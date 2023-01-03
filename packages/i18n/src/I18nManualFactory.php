@@ -1,6 +1,8 @@
 <?php
 
-namespace Sxy\I18n;
+declare(strict_types=1);
+
+namespace Cyclone\I18n;
 
 use ZM\Annotation\OneBot\BotCommand;
 use ZM\Annotation\OneBot\CommandArgument;
@@ -12,9 +14,8 @@ class I18nManualFactory extends StaticManualFactory
 {
     public function __construct(
         private TranslationProvider $translations,
-        private LocaleDecider       $decider,
-    )
-    {
+        private LocaleDecider $decider,
+    ) {
         parent::__construct();
     }
 

@@ -3,3 +3,4 @@ packages/*/vendor
 packages/*/composer.lock
 vendor
 .idea
+.php-cs-fixer.cache

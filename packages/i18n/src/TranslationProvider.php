@@ -1,6 +1,8 @@
 <?php
 
-namespace Sxy\I18n;
+declare(strict_types=1);
+
+namespace Cyclone\I18n;
 
 use OneBot\Config\Loader\DelegateLoader;
 use OneBot\Config\Repository;
@@ -37,7 +39,7 @@ class TranslationProvider
 
     public function get(string $key, string $locale = null): string
     {
-        $locale = $locale ?: (string)$this->holder->get('locale');
+        $locale = $locale ?: (string) $this->holder->get('locale');
         return $this->holder->get("{$locale}.{$key}", $key);
     }
 }
