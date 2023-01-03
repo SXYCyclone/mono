@@ -1,0 +1,5 @@
+tools
+packages/*/vendor
+packages/*/composer.lock
+vendor
+.idea

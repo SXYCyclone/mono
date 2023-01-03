@@ -1,0 +1,17 @@
+{
+    "name": "cyclone/i18n",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sunxyw",
+            "email": "git@sunxyw.xyz"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Cyclone\\I18n\\": "src/"
+        }
+    }
+}

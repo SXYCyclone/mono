@@ -1,0 +1,60 @@
+{
+    "pre-push": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer analyse"
+            },
+            {
+                "action": "composer test"
+            }
+        ]
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer cs-fix -- --config=.php-cs-fixer.php --dry-run --diff {$STAGED_FILES|of-type:php}",
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
+                        "args": [
+                            "php"
+                        ]
+                    }
+                ]
+            },
+            {
+                "action": "vendor/bin/monorepo-builder merge",
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
+                        "args": [
+                            "json"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "post-change": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer install",
+                "options": [],
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileChanged\\Any",
+                        "args": [
+                            [
+                                "composer.json",
+                                "composer.lock"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
