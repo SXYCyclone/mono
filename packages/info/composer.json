@@ -1,0 +1,17 @@
+{
+    "name": "cyclone/info",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cyclone\\Info\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sunxyw",
+            "email": "git@sunxyw.xyz"
+        }
+    ],
+    "require": {}
+}

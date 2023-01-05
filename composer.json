@@ -15,11 +15,15 @@
     },
     "autoload": {
         "psr-4": {
-            "Cyclone\\I18n\\": "packages/i18n/src/"
+            "Cyclone\\Extend\\": "packages/extend/src/",
+            "Cyclone\\I18n\\": "packages/i18n/src/",
+            "Cyclone\\Info\\": "packages/info/src/"
         }
     },
     "replace": {
-        "cyclone/i18n": "self.version"
+        "cyclone/extend": "self.version",
+        "cyclone/i18n": "self.version",
+        "cyclone/info": "self.version"
     },
     "scripts": {
         "post-autoload-dump": "tools/captainhook install -f -s",

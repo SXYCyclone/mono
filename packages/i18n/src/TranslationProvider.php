@@ -7,6 +7,7 @@ namespace Cyclone\I18n;
 use OneBot\Config\Loader\DelegateLoader;
 use OneBot\Config\Repository;
 use ZM\Config\ZMConfig;
+use ZM\Store\FileSystem;
 
 class TranslationProvider
 {
@@ -14,6 +15,7 @@ class TranslationProvider
 
     public function __construct()
     {
+        FileSystem::createDir(SOURCE_ROOT_DIR . '/lang');
         $this->holder = new ZMConfig('lang', [
             'source' => [
                 'extensions' => ['php'],

@@ -1,0 +1,17 @@
+{
+    "name": "cyclone/extend",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cyclone\\Extend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sunxyw",
+            "email": "git@sunxyw.xyz"
+        }
+    ],
+    "require": {}
+}
