@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cyclone\Extend;
 
 use Cyclone\Extend\Annotations\CycloneCommand;
-use ZM\Annotation\AnnotationMap;
+use Cyclone\Extend\Commander\ExpressionParser;
 use ZM\Annotation\AnnotationParser;
 use ZM\Annotation\Framework\Init;
 
@@ -18,6 +18,7 @@ abstract class CyclonePluginProvider
         $this->plugin = $this->newPlugin();
         $this->plugin->setBasePath($this->getPluginBaseDir());
         $this->configure($this->plugin);
+        RichLog::$plugin = $this->plugin->shortName();
     }
 
     abstract public function configure(CyclonePlugin $plugin): void;
@@ -31,6 +32,14 @@ abstract class CyclonePluginProvider
                 SOURCE_ROOT_DIR . '/lang'
             );
         }
+
+        foreach ($this->plugin->configFiles as $configFile) {
+            $this->publish(
+                $this->plugin->basePath($configFile),
+                SOURCE_ROOT_DIR . DIRECTORY_SEPARATOR . $configFile
+            );
+        }
+
         $this->startParsing();
         RichLog::log([
             'Plugin',
@@ -71,10 +80,7 @@ abstract class CyclonePluginProvider
     {
         $parser = new AnnotationParser(false);
         $parser->addPsr4Path($this->plugin->basePath('src'), $this->getPluginNamespace());
-        $parser->addSpecialParser(CycloneCommand::class, new CommandConveyor());
-        [$list, $map] = $parser->parse();
-        AnnotationMap::loadAnnotationList($list);
-        AnnotationMap::loadAnnotationMap($map);
-        AnnotationMap::sortAnnotationList();
+        $parser->addSpecialParser(CycloneCommand::class, new CommandConveyor(new ExpressionParser()));
+        $parser->parse();
     }
 }

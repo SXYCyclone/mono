@@ -10,11 +10,7 @@ use ZM\Annotation\AnnotationBase;
 class CycloneCommand extends AnnotationBase
 {
     public function __construct(
-        public string $name,
-        public string $alias,
-        public string $description,
-        public string $usage,
-        public string $example,
+        public string $expression,
     ) {
     }
 }

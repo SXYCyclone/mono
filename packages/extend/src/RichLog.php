@@ -8,6 +8,8 @@ use function Termwind\render;
 
 class RichLog
 {
+    public static string $plugin;
+
     public static function log(array $content, array $highlights = []): void
     {
         $output = '';
@@ -18,10 +20,20 @@ class RichLog
                 $output .= "<span class=\"text-gray-500\">{$line}</span>";
             }
         }
+
+        if (self::$plugin) {
+            $l = (10 - strlen(self::$plugin)) / 2;
+            $r = 10 - $l - strlen(self::$plugin);
+            $p = "<span class='bg-fuchsia-800 pl-{$l} pr-{$r}'>" . self::$plugin . '</span>';
+        } else {
+            $p = '';
+        }
+
         render(
             <<<HTML
 <div class="space-x-1">
-    <span class="bg-violet-600 px-1">Cyclone</span>
+    <span class="bg-purple-800 px-1">Cyclone</span>
+    {$p}
     {$output}
 </div>
 HTML
