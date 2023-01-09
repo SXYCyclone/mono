@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cyclone\Extend;
 
+use Cyclone\Extend\Annotations\CycloneCommand;
+use ZM\Annotation\AnnotationMap;
+use ZM\Annotation\AnnotationParser;
 use ZM\Annotation\Framework\Init;
 
 abstract class CyclonePluginProvider
@@ -28,7 +31,12 @@ abstract class CyclonePluginProvider
                 SOURCE_ROOT_DIR . '/lang'
             );
         }
-        logger()->info('CyclonePlugin ' . static::class . ' is loaded.');
+        $this->startParsing();
+        RichLog::log([
+            'Plugin',
+            $this->plugin->shortName(),
+            'Loaded',
+        ], [1]);
     }
 
     public function publishes(array $publishes): void
@@ -52,5 +60,21 @@ abstract class CyclonePluginProvider
     {
         $reflector = new \ReflectionClass(static::class);
         return dirname($reflector->getFileName(), 2);
+    }
+
+    protected function getPluginNamespace(): string
+    {
+        return (new \ReflectionClass(static::class))->getNamespaceName();
+    }
+
+    protected function startParsing(): void
+    {
+        $parser = new AnnotationParser(false);
+        $parser->addPsr4Path($this->plugin->basePath('src'), $this->getPluginNamespace());
+        $parser->addSpecialParser(CycloneCommand::class, new CommandConveyor());
+        [$list, $map] = $parser->parse();
+        AnnotationMap::loadAnnotationList($list);
+        AnnotationMap::loadAnnotationMap($map);
+        AnnotationMap::sortAnnotationList();
     }
 }

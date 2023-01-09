@@ -13,5 +13,7 @@
             "email": "git@sunxyw.xyz"
         }
     ],
-    "require": {}
+    "require": {
+        "nunomaduro/termwind": "^1.15"
+    }
 }

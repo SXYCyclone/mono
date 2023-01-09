@@ -31,6 +31,12 @@ class Publisher
         if ($force || !file_exists($destination)) {
             copy($source, $destination);
             logger()->info("Published {$source} to {$destination}");
+            RichLog::log([
+                'Published',
+                $source,
+                'to',
+                $destination,
+            ], [1, 3]);
         }
     }
 }
