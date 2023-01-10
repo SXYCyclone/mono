@@ -8,6 +8,7 @@
     "require": {
         "nunomaduro/termwind": "^1.15",
         "php": "^8.1",
+        "spatie/once": "^3.1",
         "zhamao/framework": "^3"
     },
     "require-dev": {
@@ -15,6 +16,9 @@
         "symplify/monorepo-builder": "^11.1"
     },
     "autoload": {
+        "files": [
+            "packages/i18n/src/functions.php"
+        ],
         "psr-4": {
             "Cyclone\\Extend\\": "packages/extend/src/",
             "Cyclone\\I18n\\": "packages/i18n/src/",

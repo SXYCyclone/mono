@@ -50,4 +50,14 @@ class TranslationProvider
         }
         return $t;
     }
+
+    public function addPackage(string $path): void
+    {
+        $this->holder->addConfigPath($path);
+    }
+
+    public function refresh(): void
+    {
+        $this->holder->reload();
+    }
 }

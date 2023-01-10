@@ -6,6 +6,7 @@ namespace Cyclone\Extend;
 
 use Cyclone\Extend\Annotations\CycloneCommand;
 use Cyclone\Extend\Commander\ExpressionParser;
+use Cyclone\I18n\TranslationProvider;
 use ZM\Annotation\AnnotationParser;
 use ZM\Annotation\Framework\Init;
 
@@ -27,10 +28,12 @@ abstract class CyclonePluginProvider
     public function onInit(): void
     {
         if ($this->plugin->hasTranslations) {
-            $this->publish(
-                $this->plugin->basePath('lang'),
-                SOURCE_ROOT_DIR . '/lang'
-            );
+            TranslationProvider::getInstance()->addPackage($this->plugin->basePath('lang'));
+            TranslationProvider::getInstance()->refresh();
+//            $this->publish(
+//                $this->plugin->basePath('lang'),
+//                SOURCE_ROOT_DIR . '/lang'
+//            );
         }
 
         foreach ($this->plugin->configFiles as $configFile) {
