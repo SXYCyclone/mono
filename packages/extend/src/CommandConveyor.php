@@ -27,6 +27,7 @@ class CommandConveyor
             $parsed['name'],
             $parsed['arguments'],
             [$cycloneCommand->class, $cycloneCommand->method],
+            $cycloneCommand->expression,
         );
         CommandStore::addCommand($command);
 //        [$botCommand, $commandArguments, $commandHelp] = $this->convert($cycloneCommand);

@@ -12,6 +12,9 @@
     "autoload": {
         "psr-4": {
             "Cyclone\\I18n\\": "src/"
-        }
+        },
+        "files": [
+            "src/functions.php"
+        ]
     }
 }

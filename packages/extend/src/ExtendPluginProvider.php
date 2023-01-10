@@ -9,6 +9,7 @@ class ExtendPluginProvider extends CyclonePluginProvider
     public function configure(CyclonePlugin $plugin): void
     {
         $plugin->name('extend')
-            ->hasConfigFile('config/cyclone.php');
+            ->hasConfigFile('config/cyclone.php')
+            ->hasTranslations();
     }
 }

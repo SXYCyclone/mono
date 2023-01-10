@@ -6,12 +6,18 @@ namespace Cyclone\I18n;
 
 use OneBot\Config\Loader\DelegateLoader;
 use OneBot\Config\Repository;
+use OneBot\Util\Singleton;
 use ZM\Config\ZMConfig;
+use ZM\Context\BotContext;
 use ZM\Store\FileSystem;
 
 class TranslationProvider
 {
+    use Singleton;
+
     private ZMConfig $holder;
+
+    private LocaleDecider $decider;
 
     public function __construct()
     {
@@ -32,16 +38,16 @@ class TranslationProvider
                 [],
             ],
         ]);
-    }
-
-    public function setLocale(string $locale): void
-    {
-        $this->holder->set('locale', $locale);
+        $this->decider = new LocaleDecider();
     }
 
     public function get(string $key, string $locale = null): string
     {
-        $locale = $locale ?: (string) $this->holder->get('locale');
-        return $this->holder->get("{$locale}.{$key}", $key);
+        $locale = $locale ?: $this->decider->decideFromBotContext(resolve(BotContext::class));
+        $t = $this->holder->get("{$locale}.{$key}", $key);
+        if ($t === $key) {
+            logger()->warning("translation key '{$key}' not found in locale '{$locale}'");
+        }
+        return $t;
     }
 }

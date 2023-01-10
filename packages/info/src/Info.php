@@ -9,13 +9,13 @@ use Cyclone\Extend\CyclonePlugin;
 
 class Info extends CyclonePlugin
 {
-    #[CycloneCommand('user <user>')]
+    #[CycloneCommand('user user')]
     public function showUserInfo(): void
     {
         // do something
     }
 
-    #[CycloneCommand('avatar <target>')]
+    #[CycloneCommand('avatar target')]
     public function showAvatar(): void
     {
         // do something
@@ -27,7 +27,7 @@ class Info extends CyclonePlugin
         // do something
     }
 
-    #[CycloneCommand('roles <target>')]
+    #[CycloneCommand('roles target')]
     public function showRoles(): void
     {
         // do something

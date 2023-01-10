@@ -8,9 +8,11 @@ use ZM\Context\BotContext;
 
 class LocaleDecider
 {
-    public function __construct(
-        private readonly PreferenceStore $store,
-    ) {
+    private readonly PreferenceStore $store;
+
+    public function __construct()
+    {
+        $this->store = PreferenceStore::getInstance(kv('i18n'));
     }
 
     public function decideFromBotContext(BotContext $context): string
